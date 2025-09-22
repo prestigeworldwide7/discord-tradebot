@@ -1,0 +1,37 @@
+# Example configuration for the Discord‑TradeStation bot.
+#
+# Fields support environment variable substitution of the form ${VAR} or
+# ${VAR:-default}.  For example, ``client_id: ${TS_CLIENT_ID}`` will be
+# replaced with the TS_CLIENT_ID environment variable at runtime.
+
+discord:
+  # ID of the channel to monitor for trade alerts.  You can also set
+  # DISCORD_CHANNEL_ID environment variable instead of editing this file.
+  channel_id: ${DISCORD_CHANNEL_ID}
+
+tradestation:
+  # Base URL for the API; defaults to the simulator.  You can point
+  # to https://api.tradestation.com/v3 for live trading.  To override via
+  # environment variable set TS_BASE_URL.
+  base_url: ${TS_BASE_URL:-https://sim-api.tradestation.com/v3}
+  client_id: ${TS_CLIENT_ID}
+  client_secret: ${TS_CLIENT_SECRET}
+  account_key: ${TS_ACCOUNT_KEY}
+  redirect_uri: ${TS_REDIRECT_URI}
+  refresh_token: ${TS_REFRESH_TOKEN}
+
+# Risk management parameters.  Adjust these values to suit your risk appetite.
+risk:
+  max_open_positions: 5
+  max_risk_per_trade: 100.0
+  max_total_risk: 300.0
+  # contract_multiplier: 100  # Not configurable by default; see risk.RiskManager
+
+# Trade defaults.  Quantity of option contracts to trade per alert.
+trade:
+  quantity: 1
+
+# Emergency controls.  If this many consecutive order failures occur,
+# trading will be disabled and all positions closed.
+controls:
+  max_consecutive_failures: 3
